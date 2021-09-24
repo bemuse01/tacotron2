@@ -51,6 +51,6 @@ if __name__ == '__main__':
 
         train_new.append(f"{os.path.join(args.mel_directory, mel_name)}|{text}")
 
-        save_txt(train_path, '\n'.join(train_new))
         np.save(mel_path, audio.spectrogram(audio_data, True))
 
+    save_txt(train_path, '\n'.join(train_new))
