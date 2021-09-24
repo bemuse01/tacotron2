@@ -47,6 +47,8 @@ if __name__ == '__main__':
     train_new = []
     val_new = []
 
+    zero_count = 0
+
     os.makedirs(mel_directory, exist_ok=True)
 
     for line in train_old:
@@ -63,6 +65,9 @@ if __name__ == '__main__':
         spectrogram = audio.spectrogram(audio_data, True)
 
         print(spectrogram)
+
+        if 0 in spectrogram:
+            zero_count += 1
 
         np.save(mel_path, spectrogram)
 
