@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser.add_argument("--mel_directory", type=str, default="meian_spectrogram", help="")
 
     parser.add_argument("--sample_rate", type=int, default=22050, help="Sample rate.")
-    parser.add_argument("--num_fft", type=int, default=1024, help="Number of FFT frequencies.")
+    parser.add_argument("--num_fft", type=int, default=1102, help="Number of FFT frequencies.")
     parser.add_argument("--num_mels", type=int, default=80, help="Number of mel bins.")
     parser.add_argument("--stft_window_ms", type=float, default=50, help="STFT window size.")
     parser.add_argument("--stft_shift_ms", type=float, default=12.5, help="STFT window shift.")
