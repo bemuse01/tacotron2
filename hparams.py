@@ -24,7 +24,7 @@ def create_hparams(hparams_string=None, verbose=False):
         ################################
         # Data Parameters             #
         ################################
-        load_mel_from_disk=False,
+        load_mel_from_disk=True,
         training_files='/content/tacotron2/filelists/meian/train.txt',
         validation_files='/content/tacotron2/filelists/meian/val.txt',
         text_cleaners=['english_cleaners'],
