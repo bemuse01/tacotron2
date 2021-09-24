@@ -75,3 +75,5 @@ if __name__ == '__main__':
 
     save_txt(train_path, '\n'.join(train_new))
     save_txt(val_path, '\n'.join(val_new))
+
+    print('count: ', zero_count)
