@@ -35,7 +35,7 @@ if __name__ == '__main__':
     data_directory = args.data_directory
     mel_directory = os.path.join(data_directory, args.mel_directory)
     train_path = os.path.join(args.filelists_directory, hparams.training_files)
-    train_old = load_txt()
+    train_old = load_txt(train_path)
     train_new = []
 
     os.makedirs(mel_directory, exist_ok=True)

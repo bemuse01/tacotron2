@@ -1,4 +1,5 @@
 import random
+import os
 import numpy as np
 import torch
 import torch.utils.data
@@ -14,7 +15,8 @@ class TextMelLoader(torch.utils.data.Dataset):
         2) normalizes text and converts them to sequences of one-hot vectors
         3) computes mel-spectrograms from audio files.
     """
-    def __init__(self, audiopaths_and_text, hparams):
+    def __init__(self, audiopaths_and_text, hparams, data_directory):
+        self.data_dir = data_directory
         self.audiopaths_and_text = load_filepaths_and_text(audiopaths_and_text)
         self.text_cleaners = hparams.text_cleaners
         self.max_wav_value = hparams.max_wav_value
@@ -29,7 +31,7 @@ class TextMelLoader(torch.utils.data.Dataset):
 
     def get_mel_text_pair(self, audiopath_and_text):
         # separate filename and text
-        audiopath, text = audiopath_and_text[0], audiopath_and_text[1]
+        audiopath, text = os.path.join(self.data_dir, audiopath_and_text[0]), audiopath_and_text[1]
         text = self.get_text(text)
         mel = self.get_mel(audiopath)
         return (text, mel)
