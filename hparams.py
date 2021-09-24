@@ -41,6 +41,19 @@ def create_hparams(hparams_string=None, verbose=False):
         mel_fmin=0.0,
         mel_fmax=8000.0,
 
+        sample_rate = 22050,                  # sample rate of source .wavs, used while computing spectrograms, MFCCs, etc.
+        num_fft = 1024,                       # number of frequency bins used during computation of spectrograms
+        num_mels = 80,                       # number of mel bins used during computation of mel spectrograms
+        num_mfcc = 13,                        # number of MFCCs, used just for MCD computation (during training)
+        stft_window_ms = 50,                  # size in ms of the Hann window of short-time Fourier transform, used during spectrogram computation
+        stft_shift_ms = 12.5,                 # shift of the window (or better said gap between windows) in ms
+        griffin_lim_iters = 60,               # used if vocoding using Griffin-Lim algorithm (synthesize.py), greater value does not make much sense
+        griffin_lim_power = 1.5,              # power applied to spectrograms before using GL
+        normalize_spectrogram = True,         # if True, spectrograms are normalized before passing into the model, a per-channel normalization is used
+                                            # statistics (mean and variance) are computed from dataset at the start of training  
+        use_preemphasis = True,               # if True, a preemphasis is applied to raw waveform before using them (spectrogram computation)
+        preemphasis = 0.97,      
+
         ################################
         # Model Parameters             #
         ################################
