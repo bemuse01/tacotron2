@@ -2,6 +2,7 @@ import os
 import numpy as np
 import argparse
 import audio
+import random
 from hparams import create_hparams
 
 def load_txt(path):
@@ -37,9 +38,14 @@ if __name__ == '__main__':
 
     data_directory = args.data_directory
     mel_directory = os.path.join(data_directory, args.mel_directory)
+    
     train_path = os.path.join(args.filelists_directory, hparams.training_files)
+    val_path = os.path.join(args.filelists_directory, hparams.validation_files)
+    
     train_old = load_txt(train_path)
+    
     train_new = []
+    val_new = []
 
     os.makedirs(mel_directory, exist_ok=True)
 
@@ -56,4 +62,7 @@ if __name__ == '__main__':
 
         np.save(mel_path, audio.spectrogram(audio_data, True))
 
+    val_new = random.sample(train_new, 256)
+
     save_txt(train_path, '\n'.join(train_new))
+    save_txt(val_path, '\n'.join(val_new))
