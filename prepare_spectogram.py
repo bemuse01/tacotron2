@@ -32,6 +32,9 @@ if __name__ == '__main__':
 
     hparams = create_hparams()
 
+    hparams.num_fft = args.num_fft
+    hparams.num_mels = args.num_mels
+
     data_directory = args.data_directory
     mel_directory = os.path.join(data_directory, args.mel_directory)
     train_path = os.path.join(args.filelists_directory, hparams.training_files)
