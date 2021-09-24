@@ -204,7 +204,7 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
     is_overflow = False
     # ================ MAIN TRAINNIG LOOP! ===================
     for epoch in range(epoch_offset, hparams.epochs):
-        print("Epoch: {}".format(epoch))
+        print("Epoch: {}, data length: {}".format(epoch, len(train_loader)))
         for i, batch in enumerate(train_loader):
             # print(batch[1])
 
