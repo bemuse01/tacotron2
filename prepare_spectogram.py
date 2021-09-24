@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--filelists_directory", type=str, default="/content/tacotron2/filelists", help="")
     parser.add_argument("--data_directory", type=str, default="/content/tacotron2/data", help="")
-    parser.add_argument("--mel_directory", type=str, default="/content/tacotron2/data/meian_spectrogram", help="")
+    parser.add_argument("--mel_directory", type=str, default="meian_spectrogram", help="")
 
     parser.add_argument("--sample_rate", type=int, default=22050, help="Sample rate.")
     parser.add_argument("--num_fft", type=int, default=1024, help="Number of FFT frequencies.")
@@ -33,8 +33,10 @@ if __name__ == '__main__':
     hparams = create_hparams()
 
     data_directory = args.data_directory
-    mel_directory = args.mel_directory
-    train_old = load_txt(os.path.join(args.filelists_directory, hparams.training_files))
+    mel_directory = os.path.join(data_directory, args.mel_directory)
+    train_path = os.path.join(args.filelists_directory, hparams.training_files)
+    train_old = load_txt()
+    train_new = []
 
     os.makedirs(mel_directory, exist_ok=True)
 
@@ -47,6 +49,8 @@ if __name__ == '__main__':
         audio_path = os.path.join(data_directory, wav_path)
         audio_data = audio.load(audio_path)
 
+        train_new.append(f"{os.path.join(args.mel_directory, mel_name)}|{text}")
+
+        save_txt(train_path, '\n'.join(train_new))
         np.save(mel_path, audio.spectrogram(audio_data, True))
 
-        
