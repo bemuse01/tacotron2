@@ -212,6 +212,7 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
 
             model.zero_grad()
             x, y = model.parse_batch(batch)
+            print(batch[-1])
             y_pred = model(x)
 
             loss = criterion(y_pred, y)
@@ -237,8 +238,9 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
 
             if not is_overflow and rank == 0:
                 duration = time.perf_counter() - start
-                print("Train loss {} {:.6f} Grad Norm {:.6f} {:.2f}s/it".format(
+                print("iteration: {}, loss: {:.6f}, Grad Norm: {:.6f}, durtaion: {:.2f}s/it".format(
                     iteration, reduced_loss, grad_norm, duration))
+                
                 logger.log_training(
                     reduced_loss, grad_norm, learning_rate, duration, iteration)
 

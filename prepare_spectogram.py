@@ -60,7 +60,11 @@ if __name__ == '__main__':
 
         train_new.append(f"{os.path.join(args.mel_directory, mel_name)}|{text}")
 
-        np.save(mel_path, audio.spectrogram(audio_data, True))
+        spectrogram = audio.spectrogram(audio_data, True)
+
+        print(spectrogram)
+
+        np.save(mel_path, spectrogram)
 
     val_new = random.sample(train_new, 256)
 
