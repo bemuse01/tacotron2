@@ -150,7 +150,7 @@ def validate(model, criterion, valset, iteration, batch_size, n_gpus,
 
 
 def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
-          rank, group_name, hparams, data_directory):
+          rank, group_name, hparams, data_directory, tried):
     """Training and validation logging results to tensorboard and stdout
 
     Params
@@ -257,7 +257,7 @@ def train(output_directory, log_directory, checkpoint_path, warm_start, n_gpus,
                          hparams.distributed_run, rank)
                 if rank == 0:
                     checkpoint_path = os.path.join(
-                        output_directory, "checkpoint_{}".format(iteration))
+                        output_directory, "checkpoint_{}_{}".format(tried, iteration))
                     save_checkpoint(model, optimizer, learning_rate, iteration,
                                     checkpoint_path)
 
@@ -283,6 +283,7 @@ if __name__ == '__main__':
     parser.add_argument('--hparams', type=str,
                         required=False, help='comma separated name=value pairs')
     parser.add_argument('--data_directory', type=str, default='/content/tacotron2/data')
+    parser.add_argument('--tried', type=str, default="try1")
 
     args = parser.parse_args()
     hparams = create_hparams(args.hparams)
@@ -297,4 +298,4 @@ if __name__ == '__main__':
     print("cuDNN Benchmark:", hparams.cudnn_benchmark)
 
     train(args.output_directory, args.log_directory, args.checkpoint_path,
-          args.warm_start, args.n_gpus, args.rank, args.group_name, hparams, args.data_directory)
+          args.warm_start, args.n_gpus, args.rank, args.group_name, hparams, args.data_directory, args.tried)
